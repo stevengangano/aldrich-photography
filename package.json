@@ -1,0 +1,28 @@
+{
+  "name": "campgrounds",
+  "version": "1.0.0",
+  "description": "campgrounds",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/www.github.com/stevengangano.git"
+  },
+  "keywords": [
+    "node",
+    "campgrounds"
+  ],
+  "author": "Steven Gangano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/www.github.com/stevengangano/issues"
+  },
+  "homepage": "https://github.com/www.github.com/stevengangano#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3"
+  }
+}
