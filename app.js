@@ -17,9 +17,11 @@ var campgrounds = [
 	{name: "Granite Hill", image: "https://www.google.com/logos/doodles/2017/100th-anniversary-of-the-silent-parade-4623481009340416.5-l.png"},
 	{name: "Goat Creek", image: "https://www.google.com/logos/doodles/2017/100th-anniversary-of-the-silent-parade-4623481009340416.5-l.png"}
 ]
+
 //displays all the campgrounds
 app.get("/campgrounds", function(req, res) {
 	//" var campgrounds"is moved above so it doesn't repost again
+
 
 	//{named anything you want: variable object}
 	//res.render(page name, data you want to pass)
