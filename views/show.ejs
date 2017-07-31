@@ -1,0 +1,10 @@
+<% include partials/header %>
+
+<p> <%= showCampground.name%> </p>
+
+<img src="<%= showCampground.image %>">
+
+<p> <%= showCampground.description %> </p>
+
+<!-- Edit Page -->
+<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit </a>

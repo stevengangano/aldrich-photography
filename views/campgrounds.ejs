@@ -1,13 +1,9 @@
 <% include partials/header %>
 
 <div class="container">
-	<header class="jumbotron text-center"> 
-		<h2 style="color: orange;">This is the Campgrounds Page </h2>
-		<p>
-		<a href="/campgrounds/new" class="btn btn-primary btn-small"> Add a new campground </a>
-		</p>
-	</header>
-
+	<div class="text-right">
+		<a href="/campgrounds/new" class="btn btn-danger btn-small"> Add a new Photo </a>
+	</div>
 
 	<div class="row" style="display: flex; flex-wrap: wrap;">
 		<% thecampgrounds.forEach(function(campground){ %>
@@ -16,6 +12,12 @@
 					<img src="<%= campground.image %>">
 					<div class="caption text-center">
 						<h4><%= campground.name %><h4>
+					</div>
+					<div>
+						<p class="text-center">
+							<!-- Displays more info about campground -->
+							<a href="/campgrounds/<%= campground._id %>" class="btn btn-primary btn-small"> More Info </a>
+						</p>
 					</div>
 				</div>
 			</div>
