@@ -10,6 +10,8 @@ mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs")
+//needed for app.css
+app.use(express.static(__dirname + "/public"));
 //Needed to edit and update campground
 app.use(methodOverride("_method"));
 
@@ -127,8 +129,19 @@ app.put("/campgrounds/:id/", function(req,res){
 				res.redirect("/campgrounds/" + updatedCampground._id)
 			}
 	});
-
 });
+
+//Delete a campground
+app.delete("/campgrounds/:id", function(req, res){
+	Campground.findByIdAndRemove(req.params.id, function(err){
+		if(err) {
+			res.redirect("/campgrounds");
+		} else {
+			res.redirect("/campgrounds");
+		}
+	});
+}); 
+
 
 app.listen(PORT, function(){
   console.log('Server Running');

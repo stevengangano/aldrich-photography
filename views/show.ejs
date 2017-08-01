@@ -7,4 +7,11 @@
 <p> <%= showCampground.description %> </p>
 
 <!-- Edit Page -->
-<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit </a>
+<button class="btn btn-warning btn-xs"> 
+	<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit Photo </a> 
+</button>
+
+<!-- Delete Campground -->
+<form action="/campgrounds/<%= showCampground._id %>?_method=DELETE" method="POST">
+	<button class="btn btn-danger btn-xs"> Delete </button>	
+</form>
