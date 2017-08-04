@@ -6,12 +6,15 @@
 
 <p> <%= showCampground.description %> </p>
 
-<!-- Edit Page -->
-<button class="btn btn-warning btn-xs"> 
-	<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit Photo </a> 
-</button>
+<p> <%= showCampground.author.username %> </p>
 
-<!-- Delete Campground -->
-<form action="/campgrounds/<%= showCampground._id %>?_method=DELETE" method="POST">
-	<button class="btn btn-danger btn-xs"> Delete </button>	
-</form>
+<!-- Edit Page -->
+<% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and blog author ID is equal to user, then show, then show edit and delete button -->
+	<button class="btn btn-warning btn-xs"> 
+		<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit Photo </a> 
+	</button>
+	<!-- Delete Campground -->
+	<form action="/campgrounds/<%= showCampground._id %>?_method=DELETE" method="POST">
+		<button class="btn btn-danger btn-xs"> Delete </button>	
+	</form>
+<% } %>
