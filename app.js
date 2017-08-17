@@ -7,9 +7,11 @@ var methodOverride = require("method-override")
 //User Authentication
 var passport = require("passport")
 var LocalStrategy = require("passport-local")
+var passportLocalMongoose = require ('passport-local-mongoose');
 //Models
 var User = require("./models/user")
 var Campground = require("./models/campground")
+var People = require("./models/people")
 
 //this creates the mongoDB database
 mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
@@ -60,6 +62,21 @@ var PORT = process.env.PORT || 5000
 //Landing Page
 app.get("/", function(req, res) {
 	res.render("landing.ejs");
+});
+
+//About Page
+app.get("/about", function(req, res) {
+	res.send("About Page");
+});
+
+//Portfolio Page
+app.get("/portfolio", function(req, res) {
+	res.render("portfolio.ejs");
+});
+
+//Portfolio Page
+app.get("/contact", function(req, res) {
+	res.send("Contact Page");
 });
 
 //(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)
@@ -165,6 +182,7 @@ app.put("/campgrounds/:id/", checkCampgroundOwnership, function(req,res){
 });
 
 //Delete a campground
+//to delete all campgrouds "db.campgrounds.drop()"
 app.delete("/campgrounds/:id", checkCampgroundOwnership, function(req, res){
 	Campground.findByIdAndRemove(req.params.id, function(err){
 		if(err) {
@@ -211,42 +229,22 @@ app.get("/login", function(req,res){
 app.post("/login", passport.authenticate("local", 
 	{
 		successRedirect: "/campgrounds",
-		failureRedirect: "/login"
+		failureRedirect: "/unauthenticated"
 	}), function(req,res) {
 });
 
 
-//***Logout***
-//Displays logout page
-// app.get("/logout", function(req, res) {
-// 	res.render("logout.ejs");
-// });
-
-// app.get('/logout', function(req,res) {
-// 	req.logout();
-// 	res.redirect("/logout");
-// });
-
-// //If not logged in, go to this page
-// app.get("/unauthenticated", function(req, res) {
-// 	res.render("unauthenticated.ejs");
-// });
-
-//Logout
-app.get('/logout', isLoggedIn,  function(req,res) {
-	res.render('logout.ejs')
+// ***Logout***
+// Displays logout page
+app.get('/logout', isLoggedIn, function(req, res) {
+	req.logout();
+	res.redirect("/login");
 });
 
-//Logout route
-app.get("/logout", isLoggedIn,  function(req, res) {
-	req.logout(); // destroys all data from sessions
-	res.redirect('/logout');
+//If not logged in, go to this page
+app.get("/unauthenticated", function(req, res) {
+	res.render("unauthenticated.ejs");
 });
-
-//Logout redirect page
-app.get('/unauthenticated', function(req,res) {
-	res.render('unauthenticated.ejs')
-})
 
 
 //middleware to check if user is logged in
@@ -279,6 +277,71 @@ function checkCampgroundOwnership(req, res, next){
 			});
 		}
 }
+
+
+
+
+
+
+
+//People page
+
+//(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)
+//displays all the campgrounds found in the mongo database
+app.get("/people", function(req, res) {
+	//Grabs the campground data from mongo database and displays it on campgrounds.ejs
+	People.find({}, function(err, allcampgrounds){
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("people.ejs", {thecampgrounds: allcampgrounds});
+		}
+	});
+});
+
+//(NEW) - Displays form to create a new campground (linked to new.ejs)
+app.get("/people/new", function(req, res) {
+	res.render("newPpl.ejs");
+});
+//(CREATE) - Adds a new campground
+//to delete all campgrouds "db.campgrounds.drop()"
+//posts a new campground then redirects to campgrounds.ejs 
+app.post("/people", isLoggedIn, function(req, res) {
+	//this grabs the data from the req.body.name and grabs name attribute on new.ejs
+	var name = req.body.name
+	var image = req.body.image
+	var desc = req.body.description
+	var newCampground = { 
+							name: name, 
+							image: image, 
+							description: desc
+						}
+	// var author = {
+	// 	id: req.user._id,
+	// 	username: req.user.username
+	// }
+	var newCampground = { 
+							name: name, 
+							image: image, 
+							description: desc
+							// author: author
+						}
+	//Create a new campground and save to the mongoDB
+	People.create(newCampground, isLoggedIn, function(err, newlyCreatedCampground){
+		if(err) {
+			console.log(err);
+		} else {
+			//redirect back tot he campgrounds page
+			res.redirect("/people");
+			// newlyCreatedCampground.author.id = req.user._id;
+			// newlyCreatedCampground.author.username = req.user.username;
+				// console.log(newlyCreatedCampground.author.id)
+				// console.log(req.user._id)
+		}
+	});	
+});
+
+// to delete "db.peoples.drop()"
 
 
 app.listen(PORT, function(){

@@ -4,16 +4,105 @@
     <title> A-One's Photography </title>
     
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="stylesheet" href="./stylesheets/app.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!-- Fade Scroll -->
+  <script>
+      $(function(){
+      var documentEl = $(document);
+      fadeElem = $('.fade-scroll');
+
+      documentEl.on('scroll', function(){
+        var currScrollPos = documentEl.scrollTop();
+
+      fadeElem.each(function () {
+        var $this = $(this),
+          elemOffsetTop = $this.offset().top;
+          if (currScrollPos > elemOffsetTop) $this.css ('opacity', 1 - (currScrollPos-elemOffsetTop)/400);
+      })
+
+      });
+    });
+  </script>
+
+
+  <style>
+
+    body {
+      background-color: black;
+    }
+
+    /*Navbar*/
+    .navbar-default {
+      margin: 0;
+    }
+    
+    /*campgrounds.ejs*/
+
+    .people-title {
+      margin-bottom: 3%;
+    }
+
+    .col-centered {
+      float: none;
+      margin: 0 auto;
+    }
+
+    .peopleImage {
+      width: 75%;
+    }
+
+    .peopleMargin {
+      margin-bottom: 5%;
+    }
+
+    .no-padding {
+      padding: 0px !important;
+      margin: 0px !important;    
+    }
+
+    .pic-dimensions {
+      width: 100%;
+    }
+
+    .overlay {
+      position: relative;
+    }
+
+    #editDelete {
+      position:absolute;
+      bottom: 0%;
+      right: 0%;
+    }
+
+    .newPhoto {
+      text-align: right;
+      margin: 1% 1% 0 0;
+    }
+
+    /*Portfolio.ejs*/
+    .title {
+      color: white;
+      position:absolute;
+      bottom: 2%;
+      right: 5%;  
+    }
+
+    .showPage ul li {
+      float: left;
+      margin: 5px;
+      display: inline-block;
+    }
+
+
+  </style>
 
   </head>
 
-<body>
+  <body>
 
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -22,14 +111,26 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="/"> Intro </a> </li>
+            <li><a href="/about"> About </a></li>
+            <li><a href="/portfolio"> Portfolio </a></li>
+            <li><a href="/contact"> Contact </a></li>
           <% if (!currentUser) { %>
-            <li><a href="/login"> Login </a> </li>
+            <li><a href="/login"> Administrator </a> </li>
             <li><a href="/register"> Register </a></li>
           <% } else { %>
+            <!-- <li><a href="/campgrounds/new"> Add a new Photo </a> </li> -->
             <li><a href="/#">Signed in as <%= currentUser.username %></a></li>
             <li><a href="/logout"> Logout </a> </li>
           <% } %>
-        <ul>
+        </ul>
       </div>
     </div>
   </nav>
+
+
+
+  </body>
+  </html>
+
+

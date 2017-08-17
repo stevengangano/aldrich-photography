@@ -1,20 +1,25 @@
 <% include partials/header %>
 
+<div class="showPage">
+   <% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+   <ul>
+		<!-- Edit Photo -->
+		<li><button class="btn btn-warning btn-xs"> 
+			<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit Photo </a> 
+		</button></li>
+
+		<!-- Delete Photo -->
+		<li><form action="/campgrounds/<%= showCampground._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-xs"> Delete </button>	
+		</form></li>
+	<% } %>
+	</ul>
+</div>
+
 <p> <%= showCampground.name%> </p>
-
-<img src="<%= showCampground.image %>">
-
 <p> <%= showCampground.description %> </p>
-
 <p> <%= showCampground.author.username %> </p>
 
-<!-- Edit Page -->
-<% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and blog author ID is equal to user, then show, then show edit and delete button -->
-	<button class="btn btn-warning btn-xs"> 
-		<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit Photo </a> 
-	</button>
-	<!-- Delete Campground -->
-	<form action="/campgrounds/<%= showCampground._id %>?_method=DELETE" method="POST">
-		<button class="btn btn-danger btn-xs"> Delete </button>	
-	</form>
-<% } %>
+<img class="img-responsive" src="<%= showCampground.image %>">
+
+
