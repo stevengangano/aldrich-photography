@@ -14,7 +14,11 @@ var Campground = require("./models/campground")
 var People = require("./models/people")
 
 //this creates the mongoDB database
-mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
+mongoose.connect("steven:gangano@ds129183.mlab.com:29183/photography");
+// mongoose.connect("mongodb://localhost/yelp_camp", {useMongoClient: true});
+// mongodb://steven:gangano@ds129183.mlab.com:29183/photography
+
+
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs")
