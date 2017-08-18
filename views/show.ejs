@@ -1,5 +1,7 @@
 <% include partials/header %>
 
+<link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
+
 <div class="showPage">
    <% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
    <ul>
