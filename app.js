@@ -69,7 +69,7 @@ app.get("/", function(req, res) {
 
 //About Page
 app.get("/about", function(req, res) {
-	res.send("About Page");
+	res.render("about.ejs");
 });
 
 //Portfolio Page
@@ -79,7 +79,7 @@ app.get("/portfolio", function(req, res) {
 
 //Portfolio Page
 app.get("/contact", function(req, res) {
-	res.send("Contact Page");
+	res.render("contact.ejs");
 });
 
 //(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)

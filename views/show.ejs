@@ -1,6 +1,8 @@
 <% include partials/header %>
 
 <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 <div class="showPage">
    <% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
@@ -16,12 +18,23 @@
 		</form></li>
 	<% } %>
 	</ul>
+
+	<img class="img-responsive" src="<%= showCampground.image %>">
+
 </div>
 
 <p> <%= showCampground.name%> </p>
 <p> <%= showCampground.description %> </p>
 <!-- <p> <%= showCampground.author.username %> </p> -->
 
-<img class="img-responsive" src="<%= showCampground.image %>">
+<br><br>
+
+
+<script>
+// Toggles hamburger icon 
+$('.menu-handle').on('click', function(){
+    $('nav ul').toggleClass('showing');
+});
+</script>
 
 
