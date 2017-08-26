@@ -43,7 +43,7 @@ body {
 
 .slideshow li:nth-child(1) {
   background-image: url(https://s-media-cache-ak0.pinimg.com/originals/54/a3/94/54a394ec16463f9f40ac135fdeb6d744.jpg);
-  animation-delay: 1s;
+  animation-delay: 0s;
 }
 .slideshow li:nth-child(2) {
   background-image: url(https://cdn.lynda.com/course/574708/574708-636322555045914497-16x9.jpg);
