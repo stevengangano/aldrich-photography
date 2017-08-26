@@ -14,189 +14,10 @@
     <style>
 
       body {
-        background-color: white;
+        background-color: black;
         overflow: hidden;
       }
-      /*Hamburger menu*/
-      .navbar-margin {
-        margin-top: 20px;
-      }
-
-      #cpBtn {
-        margin-top: 27px;
-        float: right;
-        padding: 2px 8px;
-        background-color: white;
-        border: 1px solid black;
-        border-radius: 5px;
-        }
-        
-       #cpBtn div {
-          width: 20px;
-          height: 4px;
-          background: black;
-          margin: 3px 0px;
-          border-radius: 2px;
-        }
-      /*hamburger menu end*/
-
-      .menu-handle {
-        width: 100%;
-        display: none;
-      }
-
-      .menu-text{
-        font-size: 15px;
-        font-weight: bold;
-        float: right;
-        padding: 5px;
-        box-sizing: border-box;
-        line-height: 90px;
-      }
-
-      .logo-handle {
-        position: relative;
-        right: 13px;
-        width: 100%;
-        display: none;
-      }
-
-      .logo-text {
-        color:red;
-        font-size: 15px;
-        font-weight: bold;
-        float: left;
-        padding: 5px;
-        box-sizing: border-box;
-        line-height: 85px;
-        font-weight: bold;
-        font-family: 'Eczar', serif;
-        font-size: 115%;
-      }
-
-      .logo-img-handle {
-        position: relative;
-        right: 17px;
-        width: 100%;
-        display: none;
-      }
-
-      .logo-img {
-        float: left;
-        padding: 5px;
-        box-sizing: border-box;
-      }
-
-      .logo{
-        float: left;
-        font-weight: bold;
-        font-family: 'Eczar', serif;
-        font-size: 150%;
-        line-height: 50px;
-      }
-
-      .logo-responsive{
-        margin-left: 20px;
-        height: 80px;
-      }
-
-      nav ul {
-
-          width: 100%;
-          overflow:hidden;
-          padding: 0;
-          text-align: right; /*centers the list items*/
-          -webkit-transition: max-height 0.4s;
-          transition: max-height 0.4s;
-          line-height: 45px;
-          font-family: 'Eczar', serif;
-        }
-
-      nav li {
-          display: inline-block; /*takes off bullet points and inlines*/
-          padding: 15px;
-          font-weight: 500;
-          color: red;
-          letter-spacing: 2px;  
-        }
-
-        ul li:hover {
-          color: yellow;
-        }
-
-        ul li.current {
-          color: $yellow;
-        }
-
-      }
-
-      a {
-        text-decoration: none;
-        color: inherit; /*when hovered it takes color around it*/
-      }
-      /*nav end*/
-
-      /*Responsive navbar*/
-      @media (max-width: 775px) {
-          .logo{
-            display: none;
-          } 
-
-          nav ul {
-          max-height: 0px; /*this hides nav list*/
-          }
-
-          .showing{
-          max-height: 50em; /*toggles hamburger dropdown*/
-          }
-
-          nav ul li {
-          width: 100%; /*makes each <li> on take up a whole line*/
-          box-sizing: border-box; /*doesn't expand dimensions of div when padding is applied. It leaves original dimensions.*/
-          padding: 2px;
-          }
-
-          nav ul li:hover{
-            background: #FBF099;
-          }
-
-          .menu-handle {
-            display: block;
-          } 
-
-          .logo-handle {
-            display: block;
-          } 
-
-          .logo-img-handle {
-            display: block;
-          } 
-      }
-
-      @media (max-width: 320px) {
-         .navbar-brand.title {
-            position: relative;
-            right: 10px;
-            bottom: 59px;
-         }
-      }
-
-      @media (max-width: 384px) {
-         .navbar-brand.title {
-            position: relative;
-            right: 10px;
-            bottom: 59px;
-         }
-      }
-
-      @media (max-width: 470px) {
-         .navbar-brand.title {
-            position: relative;
-            bottom: 8px;
-            right: 12px;
-            width: 55%;
-         }
-      }
+    
       /*campgrounds.ejs*/
       .people-title {
         margin-bottom: 3%;
@@ -281,7 +102,7 @@
     </div>
   </nav> -->
 
-  <nav class="nav-main">
+  <!-- <nav class="nav-main">
     <div class="logo-img-handle"><span class="logo-img"> <img src="" class="logo-responsive"> </span> </div>
     <div class="logo-handle"><span class="logo-text"> A-One's Photography </span> </div>
     <div class="menu-handle" id="menu-handle">
@@ -308,9 +129,39 @@
             <li><a href="/logout"> Logout </a> </li>
           <% } %>
     </ul>
-  </nav>
+  </nav> -->
 
-  <hr style="border-top: 1px solid black">
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                      
+      </button>
+      <a class="navbar-brand" href="#">A-One's Photography</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right text-right" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Intro</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/portfolio">Portfolio</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if (!currentUser) { %>
+          <li><a href="/login"> Administrator </a> </li>
+          <li><a href="/register"> Register </a></li>
+        <% } else { %>
+          <li><a href="/#">Signed in as <%= currentUser.username %></a></li>
+            <li><a href="/logout"> Logout </a> </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
 
   </body>
   </html>
