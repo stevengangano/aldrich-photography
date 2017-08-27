@@ -77,9 +77,24 @@ app.get("/portfolio", function(req, res) {
 	res.render("portfolio.ejs");
 });
 
-//Portfolio Page
+//Contact Page
 app.get("/contact", function(req, res) {
 	res.render("contact.ejs");
+});
+
+//Special Occassions Page
+app.get("/special-occassions", function(req, res) {
+	res.render("special-occassions.ejs");
+});
+
+//Live Events Page
+app.get("/live-events", function(req, res) {
+	res.render("live-events.ejs");
+});
+
+//Personal Page
+app.get("/personal", function(req, res) {
+	res.render("personal.ejs");
 });
 
 //(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)
