@@ -15,6 +15,10 @@
 				<div class="peopleMargin overlay">
 						<a href="/special-occassions/<%= campground._id %>"><img class="pic-dimensions" src="<%= campground.image %>"></a>
 
+						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+						<a href="/special-occassions/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-sm"> Edit/Delete </a>
+
+						<% } %>
 
 			</div>
 		<% }); %>
