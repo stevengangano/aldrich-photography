@@ -1,0 +1,29 @@
+<% include partials/header %>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<h3 class="text-center"> Special Occassion </h3>
+
+<br> 
+<div class="container">
+	<div class="row">
+		<div style="width: 30%; margin:0 auto;">
+			<form action="/special-occassions" method="POST">
+				<div class="form-group">
+					<input class="form-control img-responsive" type="text" name="name" placeholder="name">
+				</div>
+				<div class="form-group">
+					<input class="form-control img-responsive" type="text" name="image" placeholder="image url">
+				</div>
+				<div class="form-group">
+					<input class="form-control img-responsive" type="text" name="description" placeholder="description">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary btn-small btn-block"> Submit </button>
+				</div>
+				<a href="/special-occassions/"> Photos </a>
+			</form>
+		</div>
+	</div>
+</div>

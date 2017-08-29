@@ -1,7 +1,7 @@
 var	mongoose = require('mongoose');
 
 //Schema Setup (needed for the database)
-var PeopleSchema = new mongoose.Schema({
+var SpecialOccassionsSchema = new mongoose.Schema({
 	name: String,
 	image: String,
 	description: String,
@@ -15,4 +15,4 @@ var PeopleSchema = new mongoose.Schema({
 });
 
 //Campground model
-module.exports = mongoose.model ("People", PeopleSchema)
+module.exports = mongoose.model ("SO", SpecialOccassionsSchema)
