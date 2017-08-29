@@ -5,15 +5,26 @@
 
 
 <div class="showPage">
+   <% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+   <ul>
+		<!-- Edit Photo -->
+		<li><button class="btn btn-warning btn-xs"> 
+			<a href="/campgrounds/<%= showCampground._id %>/edit"> Edit Photo </a> 
+		</button></li>
+
+		<!-- Delete Photo -->
+		<li><form action="/campgrounds/<%= showCampground._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-xs"> Delete </button>	
+		</form></li>
+	<% } %>
+	</ul>
 
 	<img class="img-responsive" src="<%= showCampground.image %>">
 
 </div>
 
-<p> <%= showCampground.name%> </p>
-<p> <%= showCampground.description %> </p>
+<!-- <p> <%= showCampground.name%> </p>
+<p> <%= showCampground.description %> </p> -->
 <!-- <p> <%= showCampground.author.username %> </p> -->
-
-<br><br>
 
 

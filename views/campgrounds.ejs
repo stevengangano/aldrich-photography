@@ -1,35 +1,28 @@
 <% include partials/header %>
 
 <div class="container-fluid no-padding">
-	<div class="newPhoto" >
-		<% if (currentUser) { %>
-		<a href="/campgrounds/new" class="btn btn-primary btn-md"> Add New Photo </a>
-		<% } %>
-	</div>
 
 	<h1 class="people-title text-center" style="color: white;"> People </h1>
 
+	<div class="newPhoto" >
+		<% if (currentUser) { %>
+		<a href="/campgrounds/new" class="btn btn-primary btn-sm"> Add New Photo </a>
+		<% } %>
+	</div>
+	
 	<div class="row" style="display: flex; flex-wrap: wrap;">
 		<% thecampgrounds.forEach(function(campground){ %>
 			<div class="peopleImage col-lg-6 col-centered">
 				<div class="peopleMargin overlay">
-						<img class="pic-dimensions" src="<%= campground.image %>"> 
+						<img class="pic-dimensions" src="<%= campground.image %>">
 
 						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
-						<a href="/campgrounds/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-sm"> Edit/Delete </a>
-
+						<a href="/campgrounds/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-xs"> Edit/Delete </a>
 						<% } %>
 			</div>
 		<% }); %>
 	</div>
 
 </div>
-
-<script>
-// Toggles hamburger icon 
-$('.menu-handle').on('click', function(){
-    $('nav ul').toggleClass('showing');
-});
-</script>
 
 
