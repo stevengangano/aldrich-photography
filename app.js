@@ -12,6 +12,7 @@ var passportLocalMongoose = require ('passport-local-mongoose');
 var User = require("./models/user")
 var Campground = require("./models/campground")
 var SO = require("./models/special-occassions")
+var LE = require("./models/live-events")
 
 //this creates the mongoDB database
 mongoose.connect("steven:gangano@ds129183.mlab.com:29183/photography");
@@ -48,10 +49,10 @@ app.use(function(req, res, next) { // this makes this available on every route
 var PORT = process.env.PORT || 5000
 
 //Creating a new campground to add to the mongo database
-// Campground.create(
+// LE.create(
 // 	{
 // 		name: "Aldrich",
-// 		image: "https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-9/11196314_10101431630208498_1337263848464353873_n.jpg?oh=f7fe3bc717a749e7e7d7d831b9cd69b0&oe=59FC5F88",
+// 		image: "http://budfactory.in/webresources/images/Bboying-in-India1.jpg",
 // 		description: "Best locker in the world"
 // 	}, function(err, campground) {
 // 		if(err){
@@ -80,11 +81,6 @@ app.get("/portfolio", function(req, res) {
 //Contact Page
 app.get("/contact", function(req, res) {
 	res.render("contact.ejs");
-});
-
-//Live Events Page
-app.get("/live-events", function(req, res) {
-	res.render("live-events.ejs");
 });
 
 //Personal Page
@@ -204,13 +200,6 @@ app.delete("/campgrounds/:id", checkCampgroundOwnership, function(req, res){
 
 
 
-
-
-
-
-
-
-
 //***************************************************
 
 // Special Occassions Page
@@ -232,6 +221,7 @@ app.get("/special-occassions", function(req, res) {
 app.get("/special-occassions/new", isLoggedIn, function(req, res) {
 	res.render("newspecialoccassion.ejs");
 });
+
 //(CREATE) - Adds a new campground
 //to delete all campgrouds "db.campgrounds.drop()"
 //posts a new campground then redirects to campgrounds.ejs 
@@ -327,19 +317,122 @@ app.delete("/special-occassions/:id", checkSpecialOccassionOwnership, function(r
 
 //add edit, update, delete
 
+//***************************************************
 
 
+//Live Events
+
+//(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)
+//displays all the campgrounds found in the mongo database
+app.get("/live-events", function(req, res) {
+	//Grabs the campground data from mongo database and displays it on campgrounds.ejs
+	LE.find({}, function(err, allcampgrounds){
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("live-events.ejs", {thecampgrounds: allcampgrounds});
+		}
+	});
+});
 
 
+//(NEW) - Displays form to create a new campground (linked to new.ejs)
+app.get("/live-events/new", isLoggedIn, function(req, res) {
+	res.render("newLiveEvents.ejs");
+});
 
 
+//(CREATE) - Adds a new campground
+//to delete all campgrouds "db.campgrounds.drop()"
+//posts a new campground then redirects to campgrounds.ejs 
+app.post("/live-events", isLoggedIn, function(req, res) {
+	//this grabs the data from the req.body.name and grabs name attribute on new.ejs
+	var name = req.body.name
+	var image = req.body.image
+	var desc = req.body.description
+	var author = {
+		id: req.user._id,
+		username: req.user.username
+	}
 
+	var newLiveEvent = { 
+							name: name, 
+							image: image, 
+							description: desc,
+							author: author
+						}
 
+	//Create a new campground and save to the mongoDB
+	LE.create(newLiveEvent, function(err, newlyCreatedCampground){
+		if(err) {
+			console.log(err);
+		} else {
+			//redirect back tot he campgrounds page
+			res.redirect("/live-events");
+			// newlyCreatedCampground.author.id = req.user._id;
+			// newlyCreatedCampground.author.username = req.user.username;
+				console.log(newlyCreatedCampground.author.id)
+				console.log(req.user._id)
+		}
+	});	
+});
 
+//(SHOW) - shows info about one campground (linked to show.ejs)
+//finds the campground with the provided ID
+//req.params.id
+app.get("/live-events/:id", function(req,res){
+	//find the campground with provided ID (this finds all data in Mongo database)
+	LE.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			} else {
+				res.render("showLiveEvents.ejs", {showCampground: foundCampground});
 
+			}
+	});	
+});
 
+ //(Edit) - Edits a campground (this is linked with edit.ejs)
+app.get("/live-events/:id/edit", checkLiveEventOwnership, function(req,res){
+	//find the campground with provided ID (this finds all data in Mongo database)
+	LE.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			} else {
+				res.render("editLiveEvents.ejs", {mycampground: foundCampground});
+			}
+	});	
+});
 
+//(Update campground) - Updates the edit campground
+app.put("/live-events/:id/", checkLiveEventOwnership, function(req,res){
+	//grabs name attribute from the form
+	var editCampground = {
+					name: req.body.name, 
+					image: req.body.image,
+					desc: req.body.description
+				}
+	//find and update the campground
+	LE.findByIdAndUpdate(req.params.id, editCampground, function(err, updatedCampground){
+			if (err) {
+				res.redirect("/live-events");
+			} else {
+				//redirect to show.ejs
+				res.redirect("/live-events/" + updatedCampground._id)
 
+			}
+	});
+});
+
+//Delete a campground
+//to delete all campgrouds "db.campgrounds.drop()"
+app.delete("/live-events/:id", checkLiveEventOwnership, function(req, res){
+	LE.findByIdAndRemove(req.params.id, function(err){
+		if(err) {
+			res.redirect("live-events");
+		} else {
+			res.redirect("/live-events");
+		}
+	});
+}); 
 
 
 
@@ -452,6 +545,29 @@ function checkSpecialOccassionOwnership(req, res, next){
 			});
 		}
 }
+
+//middleware to check edit/update and destroy ownership
+function checkLiveEventOwnership(req, res, next){
+	// is User logged in?
+	if (req.isAuthenticated){
+				//if yes, then...
+				LE.findById(req.params.id, function(err, foundCampground) { // finds all Blogs in database
+					if(err){
+						res.direct('back');
+					} else {
+						// does the user own the blog? If yes....
+						if (foundCampground.author.id.equals(req.user._id)) {
+						next();
+					} else {
+						// If no....
+						res.send('You do not have permission to do that')
+					}
+
+					}
+			});
+		}
+}
+
 
 
 
