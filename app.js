@@ -695,9 +695,6 @@ function checkPersonalOwnership(req, res, next){
 }
 
 
-
-
-
 app.listen(PORT, function(){
   console.log('Server Running');
 });

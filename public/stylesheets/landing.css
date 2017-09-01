@@ -11,6 +11,7 @@ body {
 }
 
 .landing-title {
+	font-family: 'Baloo Tammudu', cursive;
 	color: red;
 	opacity: 0.8;
 }
