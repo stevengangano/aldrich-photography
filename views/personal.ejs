@@ -1,3 +1,28 @@
 <% include partials/header %>
 
-<h1 class="text-center"> Personal </h1>
+<div class="container-fluid no-padding">
+
+	<h1 class="page-title text-center" style="color: white;"> Personal </h1>
+
+	<div class="newPhoto" >
+		<% if (currentUser) { %>
+		<a href="/personal/new" class="btn btn-primary btn-sm"> Add New Photo </a>
+		<% } %>
+	</div>
+
+	<div class="row" style="display: flex; flex-wrap: wrap;">
+		<% thecampgrounds.forEach(function(campground){ %>
+			<div class="peopleImage">
+				<div class="peopleMargin overlay">
+						<img class="pic-dimensions" src="<%= campground.image %>">
+
+						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+						<a href="/personal/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-xs"> Edit/Delete </a>
+
+						<% } %>
+
+			</div>
+		<% }); %>
+	</div>
+
+</div>

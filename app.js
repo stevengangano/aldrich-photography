@@ -13,6 +13,7 @@ var User = require("./models/user")
 var Campground = require("./models/campground")
 var SO = require("./models/special-occassions")
 var LE = require("./models/live-events")
+var Personal = require("./models/personal")
 
 //this creates the mongoDB database
 mongoose.connect("steven:gangano@ds129183.mlab.com:29183/photography");
@@ -81,11 +82,6 @@ app.get("/portfolio", function(req, res) {
 //Contact Page
 app.get("/contact", function(req, res) {
 	res.render("contact.ejs");
-});
-
-//Personal Page
-app.get("/personal", function(req, res) {
-	res.render("personal.ejs");
 });
 
 //(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)
@@ -285,13 +281,13 @@ app.get("/special-occassions/:id/edit", checkSpecialOccassionOwnership, function
 //(Update campground) - Updates the edit campground
 app.put("/special-occassions/:id/", checkSpecialOccassionOwnership, function(req,res){
 	//grabs name attribute from the form
-	var editCampground = {
+	var editSpecialOccassion = {
 					name: req.body.name, 
 					image: req.body.image,
 					desc: req.body.description
 				}
 	//find and update the campground
-	SO.findByIdAndUpdate(req.params.id, editCampground, function(err, updatedCampground){
+	SO.findByIdAndUpdate(req.params.id, editSpecialOccassion, function(err, updatedCampground){
 			if (err) {
 				res.redirect("/special-occassions");
 			} else {
@@ -315,10 +311,8 @@ app.delete("/special-occassions/:id", checkSpecialOccassionOwnership, function(r
 	});
 }); 
 
-//add edit, update, delete
 
 //***************************************************
-
 
 //Live Events
 
@@ -405,13 +399,13 @@ app.get("/live-events/:id/edit", checkLiveEventOwnership, function(req,res){
 //(Update campground) - Updates the edit campground
 app.put("/live-events/:id/", checkLiveEventOwnership, function(req,res){
 	//grabs name attribute from the form
-	var editCampground = {
+	var editLiveEvent = {
 					name: req.body.name, 
 					image: req.body.image,
 					desc: req.body.description
 				}
 	//find and update the campground
-	LE.findByIdAndUpdate(req.params.id, editCampground, function(err, updatedCampground){
+	LE.findByIdAndUpdate(req.params.id, editLiveEvent, function(err, updatedCampground){
 			if (err) {
 				res.redirect("/live-events");
 			} else {
@@ -434,11 +428,121 @@ app.delete("/live-events/:id", checkLiveEventOwnership, function(req, res){
 	});
 }); 
 
+//***************************************************
 
+//Live Events
 
+//(INDEX) - displays list of all campgrounds (linked to campgrounds.ejs)
+//displays all the campgrounds found in the mongo database
+app.get("/personal", function(req, res) {
+	//Grabs the campground data from mongo database and displays it on campgrounds.ejs
+	Personal.find({}, function(err, allcampgrounds){
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("personal.ejs", {thecampgrounds: allcampgrounds});
+		}
+	});
+});
+
+//(NEW) - Displays form to create a new campground (linked to new.ejs)
+app.get("/personal/new", isLoggedIn, function(req, res) {
+	res.render("newPersonal.ejs");
+});
+
+//(CREATE) - Adds a new campground
+//to delete all campgrouds "db.campgrounds.drop()"
+//posts a new campground then redirects to campgrounds.ejs 
+app.post("/personal", isLoggedIn, function(req, res) {
+	//this grabs the data from the req.body.name and grabs name attribute on new.ejs
+	var name = req.body.name
+	var image = req.body.image
+	var desc = req.body.description
+	var author = {
+		id: req.user._id,
+		username: req.user.username
+	}
+
+	var newPersonal = { 
+							name: name, 
+							image: image, 
+							description: desc,
+							author: author
+						}
+
+	//Create a new campground and save to the mongoDB
+	Personal.create(newPersonal, function(err, newlyCreatedCampground){
+		if(err) {
+			console.log(err);
+		} else {
+			//redirect back tot he campgrounds page
+			res.redirect("/personal");
+			// newlyCreatedCampground.author.id = req.user._id;
+			// newlyCreatedCampground.author.username = req.user.username;
+				console.log(newlyCreatedCampground.author.id)
+				console.log(req.user._id)
+		}
+	});	
+});
+
+//(SHOW) - shows info about one campground (linked to show.ejs)
+//finds the campground with the provided ID
+//req.params.id
+app.get("/personal/:id", function(req,res){
+	//find the campground with provided ID (this finds all data in Mongo database)
+	Personal.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			} else {
+				res.render("showPersonal.ejs", {showCampground: foundCampground});
+
+			}
+	});	
+});
+
+ //(Edit) - Edits a campground (this is linked with edit.ejs)
+app.get("/personal/:id/edit", checkPersonalOwnership, function(req,res){
+	//find the campground with provided ID (this finds all data in Mongo database)
+	Personal.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			} else {
+				res.render("editPersonal.ejs", {mycampground: foundCampground});
+			}
+	});	
+});
+
+//(Update campground) - Updates the edit campground
+app.put("/personal/:id/", checkPersonalOwnership, function(req,res){
+	//grabs name attribute from the form
+	var editPersonal = {
+					name: req.body.name, 
+					image: req.body.image,
+					desc: req.body.description
+				}
+	//find and update the campground
+	Personal.findByIdAndUpdate(req.params.id, editPersonal, function(err, updatedCampground){
+			if (err) {
+				res.redirect("/personal");
+			} else {
+				//redirect to show.ejs
+				res.redirect("/personal/" + updatedCampground._id)
+
+			}
+	});
+});
+
+//Delete a campground
+//to delete all campgrouds "db.campgrounds.drop()"
+app.delete("/personal/:id", checkPersonalOwnership, function(req, res){
+	Personal.findByIdAndRemove(req.params.id, function(err){
+		if(err) {
+			res.redirect("personal");
+		} else {
+			res.redirect("/personal");
+		}
+	});
+}); 
 
 // to delete "db.peoples.drop()"
-
 
 // Authentication Routes
 
@@ -567,6 +671,29 @@ function checkLiveEventOwnership(req, res, next){
 			});
 		}
 }
+
+//middleware to check edit/update and destroy ownership
+function checkPersonalOwnership(req, res, next){
+	// is User logged in?
+	if (req.isAuthenticated){
+				//if yes, then...
+				Personal.findById(req.params.id, function(err, foundCampground) { // finds all Blogs in database
+					if(err){
+						res.direct('back');
+					} else {
+						// does the user own the blog? If yes....
+						if (foundCampground.author.id.equals(req.user._id)) {
+						next();
+					} else {
+						// If no....
+						res.send('You do not have permission to do that')
+					}
+
+					}
+			});
+		}
+}
+
 
 
 
