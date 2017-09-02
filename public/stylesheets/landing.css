@@ -3,6 +3,7 @@ body {
 }
 
 #landing-header {
+  font-family: 'Baloo Tammudu', cursive;
   color: black;
   z-index: 1;
   position: relative;
@@ -12,8 +13,19 @@ body {
 
 .landing-title {
 	font-family: 'Baloo Tammudu', cursive;
-	color: red;
+	color: black;
 	opacity: 0.8;
+	font-weight: bold;
+}
+
+@media (max-width: 400px) {
+	.landing-title {
+	font-size: 50px;
+	font-family: 'Baloo Tammudu', cursive;
+	color: black;
+	opacity: 0.8;
+	font-weight: bold;
+	}
 }
 
 .slideshow { 

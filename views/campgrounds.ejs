@@ -17,14 +17,13 @@
 						<img class="pic-dimensions" src="<%= campground.image %>">
 
 						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
-						<a href="/campgrounds/<%= campground._id %>" id="editDelete" class="edit-delete btn btn-danger btn-xs"> Edit/Delete </a>
+						<a href="/campgrounds/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-xs"> Edit/Delete </a>
 
 						<% } %>
 
 			</div>
 		<% }); %>
 	</div>
-
 </div>
 
 
