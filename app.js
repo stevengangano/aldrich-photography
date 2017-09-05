@@ -10,7 +10,7 @@ var LocalStrategy = require("passport-local")
 var passportLocalMongoose = require ('passport-local-mongoose');
 //Models
 var User = require("./models/user")
-var Campground = require("./models/campground")
+var People = require("./models/people")
 var SO = require("./models/special-occassions")
 var LE = require("./models/live-events")
 var Personal = require("./models/personal")
@@ -88,7 +88,7 @@ app.get("/contact", function(req, res) {
 //displays all the campgrounds found in the mongo database
 app.get("/campgrounds", function(req, res) {
 	//Grabs the campground data from mongo database and displays it on campgrounds.ejs
-	Campground.find({}, function(err, allcampgrounds){
+	People.find({}, function(err, allcampgrounds){
 		if(err) {
 			console.log(err);
 		} else {
@@ -114,14 +114,14 @@ app.post("/campgrounds", isLoggedIn, function(req, res) {
 		username: req.user.username
 	}
 
-	var newCampground = { 
+	var newPeople = { 
 							name: name, 
 							image: image, 
 							description: desc,
 							author: author
 						}
 	//Create a new campground and save to the mongoDB
-	Campground.create(newCampground, function(err, newlyCreatedCampground){
+	People.create(newPeople, function(err, newlyCreatedCampground){
 		if(err) {
 			console.log(err);
 		} else {
@@ -141,7 +141,7 @@ app.post("/campgrounds", isLoggedIn, function(req, res) {
 //req.params.id
 app.get("/campgrounds/:id", function(req,res){
 	//find the campground with provided ID (this finds all data in Mongo database)
-	Campground.findById(req.params.id, function(err, foundCampground){
+	People.findById(req.params.id, function(err, foundCampground){
 		if(err){
 			} else {
 				res.render("show.ejs", {showCampground: foundCampground});
@@ -151,9 +151,9 @@ app.get("/campgrounds/:id", function(req,res){
 });
 
  //(Edit) - Edits a campground (this is linked with edit.ejs)
-app.get("/campgrounds/:id/edit", checkCampgroundOwnership, function(req,res){
+app.get("/campgrounds/:id/edit", checkPeopleOwnership, function(req,res){
 	//find the campground with provided ID (this finds all data in Mongo database)
-	Campground.findById(req.params.id, function(err, foundCampground){
+	People.findById(req.params.id, function(err, foundCampground){
 		if(err){
 			} else {
 				res.render("edit.ejs", {mycampground: foundCampground});
@@ -163,7 +163,7 @@ app.get("/campgrounds/:id/edit", checkCampgroundOwnership, function(req,res){
 
 
 //(Update campground) - Updates the edit campground
-app.put("/campgrounds/:id/", checkCampgroundOwnership, function(req,res){
+app.put("/campgrounds/:id/", checkPeopleOwnership, function(req,res){
 	//grabs name attribute from the form
 	var editCampground = {
 					name: req.body.name, 
@@ -171,7 +171,7 @@ app.put("/campgrounds/:id/", checkCampgroundOwnership, function(req,res){
 					desc: req.body.description
 				}
 	//find and update the campground
-	Campground.findByIdAndUpdate(req.params.id, editCampground, function(err, updatedCampground){
+	People.findByIdAndUpdate(req.params.id, editCampground, function(err, updatedCampground){
 			if (err) {
 				res.redirect("/campgrounds");
 			} else {
@@ -184,8 +184,8 @@ app.put("/campgrounds/:id/", checkCampgroundOwnership, function(req,res){
 
 //Delete a campground
 //to delete all campgrouds "db.campgrounds.drop()"
-app.delete("/campgrounds/:id", checkCampgroundOwnership, function(req, res){
-	Campground.findByIdAndRemove(req.params.id, function(err){
+app.delete("/campgrounds/:id", checkPeopleOwnership, function(req, res){
+	People.findByIdAndRemove(req.params.id, function(err){
 		if(err) {
 			res.redirect("/campgrounds");
 		} else {
@@ -607,11 +607,11 @@ function isLoggedIn(req, res, next) {
 }
 
 //middleware to check edit/update and destroy ownership
-function checkCampgroundOwnership(req, res, next){
+function checkPeopleOwnership(req, res, next){
 	// is User logged in?
 	if (req.isAuthenticated){
 				//if yes, then...
-				Campground.findById(req.params.id, function(err, foundCampground) { // finds all Blogs in database
+				People.findById(req.params.id, function(err, foundCampground) { // finds all Blogs in database
 					if(err){
 						res.direct('back');
 					} else {
