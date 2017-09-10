@@ -2,10 +2,10 @@
   "name": "campgrounds",
   "version": "1.0.0",
   "description": "campgrounds",
-  "main": "app.js",
+  "main": "non_refactored_app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node non_refactored_app.js"
   },
   "repository": {
     "type": "git",
