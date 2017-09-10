@@ -1,0 +1,35 @@
+<% include partials/header %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="showPage">
+   <% if(currentUser) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+   <ul>
+		<!-- Edit Photo -->
+		<li> 
+			<a href="/about/<%= showCampground._id %>/edit">
+				<button class="btn btn-warning btn-xs"> Edit </button>
+			</a> 
+		</li>
+
+		<!-- Delete Photo -->
+		<li><form action="/about/<%= showCampground._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger btn-xs"> Delete </button>	
+		</form></li>
+
+		<!-- Back to About Page -->
+		<li>
+			<a href="/about"> <button class="btn btn-success btn-xs"> Back </button> </a>	
+		</li>
+
+	<% } %>
+	</ul>
+
+	<img class="img-responsive" src="<%= showCampground.image %>">
+	<p class="text-desc text-center"> <%= showCampground.description %> </p>
+	<!-- <p> <%= showCampground.author.username %> </p> -->
+
+</div>
+

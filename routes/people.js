@@ -19,6 +19,7 @@ router.get("/campgrounds", function(req, res) {
 router.get("/campgrounds/new", isLoggedIn, function(req, res) {
 	res.render("new.ejs");
 });
+
 //(CREATE) - Adds a new campground
 //to delete all campgrouds "db.campgrounds.drop()"
 //posts a new campground then redirects to campgrounds.ejs 
@@ -38,6 +39,7 @@ router.post("/campgrounds", isLoggedIn, function(req, res) {
 							description: desc,
 							author: author
 						}
+						
 	//Create a new campground and save to the mongoDB
 	People.create(newPeople, function(err, newlyCreatedCampground){
 		if(err) {

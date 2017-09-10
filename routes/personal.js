@@ -114,8 +114,6 @@ router.delete("/personal/:id", checkPersonalOwnership, function(req, res){
 	});
 }); 
 
-// to delete "db.peoples.drop()"
-
 //middleware to check if user is logged in
 //add to any route you need user to be logged in
 function isLoggedIn(req, res, next) {

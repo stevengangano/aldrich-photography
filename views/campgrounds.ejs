@@ -14,7 +14,7 @@
 		<% thecampgrounds.forEach(function(campground){ %>
 			<div class="peopleImage">
 				<div class="peopleMargin overlay">
-						<img class="pic-dimensions" src="<%= campground.image %>">
+						<a href="<%= campground.image %>" data-lightbox="About Me Picture" data-title="About Me" ><img class="pic-dimensions" src="<%= campground.image %>"></a>
 
 						<% if(currentUser && campground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
 						<a href="/campgrounds/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-xs"> Edit/Delete </a>
@@ -25,5 +25,3 @@
 		<% }); %>
 	</div>
 </div>
-
-

@@ -8,14 +8,20 @@
    <% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
    <ul>
 		<!-- Edit Photo -->
-		<li><button class="btn btn-warning btn-xs"> 
-			<a href="/special-occassions/<%= showCampground._id %>/edit"> Edit Photo </a> 
-		</button></li>
+		<li> 
+			<a href="/special-occassions/<%= showCampground._id %>/edit"> <button class="btn btn-warning btn-xs"> Edit Photo </button> </a> 
+		</li>
 
 		<!-- Delete Photo -->
 		<li><form action="/special-occassions/<%= showCampground._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-xs"> Delete </button>	
 		</form></li>
+
+		<!-- Back to Special Occassions Page -->
+		<li>
+			<a href="/special-occassions"> <button class="btn btn-success btn-xs"> Back </button> </a>	
+		</li>
+
 	<% } %>
 	</ul>
 

@@ -1,12 +1,30 @@
 <% include partials/header %>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="container-fluid no-padding">
 
-<h1 class="text-center"> About Aldrich Torrea </h1>
+	<h1 class="page-title text-center" style="color: white;"> About Aldrich Torrea </h1>
 
-<script>
-// Toggles hamburger icon 
-$('.menu-handle').on('click', function(){
-    $('nav ul').toggleClass('showing');
-});
-</script>
+	<div class="newPhoto" >
+		<% if (currentUser) { %>
+		<a href="/about/new" class="add-new-photo btn btn-primary btn-sm"> Add new content </a>
+		<% } %>
+	</div>
+
+	<div class="row" style="display: flex; flex-wrap: wrap;">
+		<% thecampgrounds.forEach(function(campground){ %>
+			<div class="peopleImage">
+				<div class="peopleMargin overlay">
+						<a href="<%= campground.image %>" data-lightbox="About Me Picture" data-title="About Me" ><img class="pic-dimensions" src="<%= campground.image %>"></a>
+
+						<p class="about-desc text-center"> <%= campground.description %> </p>
+
+						<% if(currentUser) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+						<a href="/about/<%= campground._id %>" id="editDelete" class="btn btn-danger btn-xs"> Edit/Delete </a>
+
+						<% } %>
+
+			</div>
+		<% }); %>
+	</div>
+
+</div>

@@ -1,9 +1,10 @@
 <% include partials/header %>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<h3 class="text-center"> Add a new Photo </h3>
+<h3 class="text-center"> Special Occassion </h3>
 
 <br> 
 <div class="container">
@@ -11,18 +12,18 @@
 		<div style="width: 30%; margin:0 auto;">
 			<form action="/special-occassions" method="POST">
 				<div class="form-group">
-					<input class="form-control img-responsive" type="text" name="name" placeholder="name">
+					<input class="form-control" type="text" name="name" placeholder="name">
 				</div>
 				<div class="form-group">
-					<input class="form-control img-responsive" type="text" name="image" placeholder="image url">
+					<input class="form-control" type="text" name="image" placeholder="image url">
 				</div>
 				<div class="form-group">
-					<input class="form-control img-responsive" type="text" name="description" placeholder="description">
+					<input class="form-control" type="text" name="description" placeholder="description">
 				</div>
 				<div class="form-group">
 					<button class="btn btn-primary btn-small btn-block"> Submit </button>
 				</div>
-				<a href="/special-occassions"> Photos </a>
+				<a href="/campgrounds/"> Back </a>
 			</form>
 		</div>
 	</div>
