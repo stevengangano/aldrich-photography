@@ -2,11 +2,47 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<h1 class="text-center"> Contact </h1>
+<h1 class="page-title text-center"> Contact </h1>
+
+<div class="email-form row" style="margin: 0px; padding: 0px;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    	<hr style="border: 1px solid gray;">
+
+		<form class="text-center" id="my_form" onsubmit="submitForm(); return false;">
+		  <label class="text-left" for="name" style="color: white; margin: 3% 0 0 3%;"> NAME <span style="color:red"> * </span> </label><br>
+		  <p><input cols="40" id="n" placeholder="Name" style="width: 50%; margin-left:3%;" required></p>
+
+		  <label class="text-left" for="email" style="color: white; margin: 3% 0 0 3%;"> EMAIL <span style="color:red"> * </span> </label><br>
+		  <p><input cols="40" id="e" placeholder="Email Address" type="email" style="width: 50%; margin-left:3%;" required></p><br>
+
+		  <label for="comment" style="color: white; margin-left:3%;"> MESSAGE <span style="color: red;"> * </span> </label><br><textarea  rows="5" cols="40" id="m" placeholder="Message" rows="10" style="margin-left:3%;" required></textarea>
+		  
+		  <p class="submitButton" style="margin: 10px 0 15px 0;"><input id="mybtn" class="btn btn-danger btn-sm" type="submit" value="Submit Form" style="margin-left:3%;"> <span id="status"></span></p>
+		</form>
+	</div>
+</div>
 
 <script>
-// Toggles hamburger icon 
-$('.menu-handle').on('click', function(){
-    $('nav ul').toggleClass('showing');
-});
+
+<?php
+if( isset($_POST['n']) && isset($_POST['e']) && isset($_POST['m']) ){
+	$n = $_POST['n']; // HINT: use preg_replace() to filter the data
+
+	$e = $_POST['e'];
+	$m = nl2br($_POST['m']);
+	$to = "stevengangano@yahoo.com";	
+	$from = $e;
+	$subject = 'Contact Form Message';
+	$message = '<b>Name:</b> '.$n.' <br><b>Email:</b> '.$e.' <p><b>Message</b>: '.$m.' </p>';
+	$headers = "From: $from\n";
+	$headers .= "MIME-Version: 1.0\n";
+	$headers .= "Content-type: text/html; charset=iso-8859-1\n";
+	if( mail($to, $subject, $message, $headers) ){
+		echo "success";
+	} else {
+		echo "The server failed to send the message. Please try again later.";
+	}
+}
+?>
+
 </script>

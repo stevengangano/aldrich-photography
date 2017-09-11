@@ -29,7 +29,7 @@ router.post("/special-occassions", isLoggedIn, function(req, res) {
 	//this grabs the data from the req.body.name and grabs name attribute on new.ejs
 	var name = req.body.name
 	var image = req.body.image
-	var desc = req.body.description
+	var description = req.body.description
 	var author = {
 		id: req.user._id,
 		username: req.user.username
@@ -38,7 +38,7 @@ router.post("/special-occassions", isLoggedIn, function(req, res) {
 	var newspecialoccassion = { 
 							name: name, 
 							image: image, 
-							description: desc,
+							description: description,
 							author: author
 						}
 
@@ -88,7 +88,7 @@ router.put("/special-occassions/:id/", checkSpecialOccassionOwnership, function(
 	var editSpecialOccassion = {
 					name: req.body.name, 
 					image: req.body.image,
-					desc: req.body.description
+					description: req.body.description
 				}
 	//find and update the campground
 	SO.findByIdAndUpdate(req.params.id, editSpecialOccassion, function(err, updatedCampground){

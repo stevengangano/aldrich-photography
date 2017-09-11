@@ -373,7 +373,7 @@ app.get("/special-occassions/:id", function(req,res){
 	SO.findById(req.params.id, function(err, foundCampground){
 		if(err){
 			} else {
-				res.render("showspecialoccassion.ejs", {showCampground: foundCampground});
+				res.render("showSpecialOccassions.ejs", {showCampground: foundCampground});
 
 			}
 	});	
