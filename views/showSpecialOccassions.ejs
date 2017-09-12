@@ -5,34 +5,34 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="showPage">
-   <% if(currentUser && showCampground.author.id.equals(currentUser._id)) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
-   <ul>
-		<!-- Edit Photo -->
+
+	<img  style="margin: 0 auto;" class="img-responsive" src="<%= showCampground.image %>">
+
+   <% if(currentUser) { %> <!-- if logged in, and comment author ID is equal to user, then show edit and delete button -->
+	<ul>
+	<!-- Edit Photo -->
 		<li> 
-			<a href="/special-occassions/<%= showCampground._id %>/edit"> <button class="btn btn-warning btn-xs"> Edit Photo </button> </a> 
+			<a href="/about/<%= showCampground._id %>/edit">
+				<button class="btn btn-warning btn-xs"> Edit </button>
+			</a> 
 		</li>
 
-		<!-- Delete Photo -->
-		<li><form action="/special-occassions/<%= showCampground._id %>?_method=DELETE" method="POST">
+	<!-- Delete Photo -->
+		<li><form action="/about/<%= showCampground._id %>?_method=DELETE" method="POST">
 			<button class="btn btn-danger btn-xs"> Delete </button>	
 		</form></li>
 
-		<!-- Back to Special Occassions Page -->
+		<!-- Back to About Page -->
 		<li>
-			<a href="/special-occassions"> <button class="btn btn-success btn-xs"> Back </button> </a>	
+			<a href="/about"> <button class="btn btn-success btn-xs"> Back </button> </a>	
 		</li>
 
 	<% } %>
-	</ul>
-
-	<img class="img-responsive" src="<%= showCampground.image %>">
-
+		<!-- <p class="about-show text-center"> <%= showCampground.description %> </p> -->
+	<ul>	
+	
 </div>
 
 <!-- <p> <%= showCampground.name%> </p>
 <p> <%= showCampground.description %> </p>
 <p> <%= showCampground.author.username %> </p> -->
-
-<br><br>
-
-
