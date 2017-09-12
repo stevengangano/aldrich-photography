@@ -84,7 +84,7 @@ app.get("/contact", function(req, res) {
 	res.render("contact.ejs");
 });
 
-//Runs on PORT localhost:5000
+//Runs on PORT localhost:7000
 var PORT = process.env.PORT || 7000
 
 app.listen(PORT, function(){
