@@ -28,6 +28,16 @@ body {
 }
 
 @media (max-width: 386px) {
+
+  #landing-header {
+  font-family: 'Baloo Tammudu', cursive;
+  color: black;
+  z-index: 1;
+  position: relative;
+  text-align: center;
+  padding-top: 35vh;
+}
+
   .landing-title {
   font-size: 35px;
   font-family: 'Baloo Tammudu', cursive;
