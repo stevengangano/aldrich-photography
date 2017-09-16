@@ -53,7 +53,7 @@ router.post("/login", passport.authenticate("local",
 // Displays logout page
 router.get('/logout', isLoggedIn, function(req, res) {
 	req.logout();
-	res.redirect("/login");
+	res.redirect("/portfolio");
 });
 
 //If not logged in, go to this page

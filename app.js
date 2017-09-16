@@ -51,6 +51,11 @@ app.use(function(req, res, next) { // this makes this available on every route
 	next();
 });
 
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/css', express.static(__dirname + '/node_modules/font-awesome/css')); // redirect bootstrap JS
+
 //Refactored Routes
 app.use(indexRoutes);
 app.use(aboutRoutes);
