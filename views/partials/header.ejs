@@ -11,10 +11,8 @@
     <script src="./js/bootstrap.min.js"></script>
     <!-- LightBox -->
     <script type="text/javascript" src="./js/lightbox.min.js"></script>
-
     <!-- Needed for hamburger in navbar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
 
@@ -24,10 +22,56 @@
         background-color: black;
       }
 
+      /*Navbar*/
       .navbar {
         margin-bottom: 0;
       }
 
+      .nav-title,
+      .nav-page {
+        font-family: 'Baloo Tammudu', cursive;  
+      }
+
+      /*Dropdown menu bootstrap override*/
+      .dropdown-toggle {
+        background-color: transparent;
+        border-color: #222222;
+        border-style: solid;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+      }
+
+
+      .dropdown-menu{
+        background-color: #222222;
+      }
+
+      .dropdown-menu>li:hover{
+        background-color:#929399;
+      }
+
+      .dropdown-menu>li>a{
+        color: #929399;
+      }
+
+      .dropdown-menu>li>a:hover {
+        background-color:#222222;
+        color: white;
+      }
+
+      /*Login Button*/
+      .login-title {
+        font-family: 'Baloo Tammudu', cursive;
+        color: ;
+        margin-bottom: 1%;
+      }
+
+      .clickable {
+        cursor: pointer;
+      }
+
+      /*About Page*/
       .about-desc {
         margin-top: 2%;
         color: white;
@@ -44,6 +88,7 @@
         margin: 0 auto;
       }
 
+      /*Photo edit/delete button*/
       .add-new-photo,
       #editDelete {
         font-family: 'Baloo Tammudu', cursive; 
@@ -55,11 +100,6 @@
         color: white;
         margin-bottom: 1%;
 
-      }
-
-      .nav-title,
-      .nav-page {
-        font-family: 'Baloo Tammudu', cursive;  
       }
 
       .peopleImage {
@@ -116,17 +156,6 @@
 
       .showPage ul li {
         display: inline-block;
-      }
-
-      /*Login*/
-      .login-title {
-        font-family: 'Baloo Tammudu', cursive;
-        color: ;
-        margin-bottom: 1%;
-      }
-
-      .clickable {
-        cursor: pointer;
       } 
 
     </style>
@@ -203,21 +232,21 @@
         <li class="nav-page"><a href="/">Intro</a></li>
         <li class="nav-page"><a href="/about">About</a></li>
         <li class="nav-page"><a href="/portfolio">Portfolio</a></li>
-<!--         <li role="presentation" class="nav-page dropdown">
-          <a class="nav-page" dropdown-toggle" data-toggle="dropdown" href="/portfolio" role="button" aria-haspopup="true" aria-expanded="false">
-              Portfolio <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-              <li class="nav-page"><a href="/campgrounds"> People </a></li>
-              <li class="nav-page"><a href="/special-occassions"></a> Special Occassions </li>
-              <li class="nav-page"><a href="/live-events"></a> Live Events </li>
-              <li class="nav-page"><a href="/personal"></a> Personal </li>
-          </ul>
-        </li -->
         <li class="nav-page"><a href="/contact">Contact</a></li>
         <% if (!currentUser) { %>
-          <li class="nav-page clickable"><a data-toggle="modal" data-target="#loginModal"> Administrator </a> </li>
-          <li class="nav-page"><a href="/register"> Register </a></li>
+      <!--     <li class="nav-page clickable"><a data-toggle="modal" data-target="#loginModal"> Administrator </a> </li>
+          <li class="nav-page"><a href="/register"> Register </a></li> -->
+
+
+
+      <li class="nav-page dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administrator
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li class="nav-page clickable"><a a data-toggle="modal" data-target="#loginModal">Login</a></li>
+          <li class="nav-page"><a href="/register">Register</a></li>
+        </ul>
+
         <% } else { %>
           <li class="nav-page"><a href="#">Signed in as <%= currentUser.username %></a></li>
           <li class="nav-page"><a href="/logout"> Logout </a> </li>
