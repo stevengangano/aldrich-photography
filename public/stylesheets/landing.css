@@ -1,3 +1,12 @@
+/* adjust path as needed */
+@fa_path: "../node_modules/font-awesome/less";
+@import "@{fa_path}/variables.less";
+@import "@{fa_path}/mixins.less";
+@import "@{fa_path}/path.less";
+@import "@{fa_path}/core.less";
+@import "@{fa_path}/icons.less";
+
+
 body {
   background-color: #000;
 }
@@ -18,11 +27,11 @@ body {
   font-weight: bold;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 386px) {
   .landing-title {
   font-size: 50px;
   font-family: 'Baloo Tammudu', cursive;
-  color: black;
+  color: white;
   opacity: 0.8;
   font-weight: bold;
   }
