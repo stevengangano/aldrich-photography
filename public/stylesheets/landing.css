@@ -98,14 +98,14 @@ body {
 }
 
 /*Social Media Header */
-ul {
+.landing-buttons {
   padding: 12px;
 }
 
-ul li {
+.landing-buttons li {
   color: white;
-  margin-left: 20px;
   display: inline-block;
+  margin-left: 2%;
 }
 
 
